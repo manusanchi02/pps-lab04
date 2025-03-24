@@ -25,11 +25,14 @@ object Ex1ComplexNumbers:
     // Change assignment below: should probably define a case class and use it?
     opaque type Complex = ComplexType
     def complex(re: Double, im: Double): Complex = ComplexType(re, im)
+    def sign(n: Double): String = if n > 0 then " + " else " - "
     extension (complex: Complex)
       def re(): Double = complex.re
       def im(): Double = complex.im
       def sum(other: Complex): Complex = ComplexType(complex.re + other.re, complex.im + other.im)
       def subtract(other: Complex): Complex = complex.sum(ComplexType(-other.re, -other.im))
-      def asString(): String = complex.re.toString + {
-        if (complex.im >= 0) then " + " else " - "
-      } + complex.im.toString + { if (complex.im != 0) then "i" else " "}
+      def asString(): String = complex match
+        case ComplexType(0,0) => "0.0"
+        case ComplexType(re, 0) => re.toString
+        case ComplexType(0, im) => im.toString + "i"
+        case ComplexType(re, im) => re.toString + sign(im) + Math.abs(im).toString + "i"
