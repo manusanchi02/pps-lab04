@@ -33,5 +33,5 @@ object Ex3Stacks:
     def empty[A]: Stack[A] = StackType(nil())
     extension [A](stack: Stack[A])
       def push(a: A): Stack[A] = StackType(cons(a.asInstanceOf[Int], stack.s))
-      def pop(): Optional[(A, Stack[A])] = ???
+      def pop(): Optional[(A, Stack[A])] = Optional.Empty()
       def asSequence(): Sequence[A] = stack.s.map(a => a.asInstanceOf[A])
