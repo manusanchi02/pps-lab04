@@ -131,7 +131,10 @@ object SchoolModel:
       def hasTeacher(name: String): Boolean = teachers match
         case Cons(teacher, _) if teacher == name => true
         case _ => false
-      def hasCourse(name: String): Boolean = ???
+      def hasCourse(name: String): Boolean = courses match
+        case Cons(course, _) if course == name => true
+        case _ => false
+
 @main def examples(): Unit =
   import SchoolModel.BasicSchoolModule.*
   val school = emptySchool
