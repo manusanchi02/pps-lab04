@@ -23,3 +23,6 @@ class SchoolModelTest:
     assertEquals(Cons("Math", nil()), emptySchool.setTeacherToCourse(teacher("John"), course("Math")).coursesOfATeacher(teacher("John")))
     assertEquals(Cons("Math", Cons("Italian", nil())), emptySchool.setTeacherToCourse(teacher("John"), course("Math")).setTeacherToCourse(teacher("John"), course("Italian")).coursesOfATeacher(teacher("John")))
 
+  @Test def testHasTeacher() =
+    assertFalse(emptySchool.hasTeacher("John"))
+    assertTrue(emptySchool.setTeacherToCourse(teacher("John"), course("Math")).hasTeacher("John"))
