@@ -1,6 +1,7 @@
 package tasks.adts
 import u03.extensionmethods.Optionals.*
 import u03.extensionmethods.Sequences.*
+import u03.extensionmethods.Sequences.Sequence.{Cons, nil}
 
 /*  Exercise 2: 
  *  Implement the below trait, and write a meaningful test.
@@ -9,7 +10,9 @@ import u03.extensionmethods.Sequences.*
  *  - For other suggestions look directly to the methods and their description
  */
 object SchoolModel:
-
+  private case class TeacherImpl(name: String)
+  private case class CourseImpl(name: String)
+  private case class SchoolImpl(classes: Sequence[(TeacherImpl, Sequence[CourseImpl])])
   trait SchoolModule:
     type School
     type Teacher
@@ -111,18 +114,19 @@ object SchoolModel:
        */
       def hasCourse(name: String): Boolean
   object BasicSchoolModule extends SchoolModule:
-    override type School = Nothing
-    override type Teacher = Nothing
-    override type Course = Nothing
 
-    def teacher(name: String): Teacher = ???
-    def course(name: String): Course = ???
-    def emptySchool: School = ???
+    override opaque type School = SchoolImpl
+    override opaque type Teacher = TeacherImpl
+    override opaque type Course = CourseImpl
+
+    def teacher(name: String): Teacher = TeacherImpl(name)
+    def course(name: String): Course = CourseImpl(name)
+    def emptySchool: School = SchoolImpl(nil())
 
     extension (school: School)
-      def courses: Sequence[String] = ???
+      def courses: Sequence[String] = school.classes.flatMap((_, courses) => courses.map(_.name))
       def teachers: Sequence[String] = ???
-      def setTeacherToCourse(teacher: Teacher, course: Course): School = ???
+      def setTeacherToCourse(teacher: Teacher, course: Course): School = SchoolImpl(Cons((teacher, Cons(course, nil())), school.classes))
       def coursesOfATeacher(teacher: Teacher): Sequence[Course] = ???
       def hasTeacher(name: String): Boolean = ???
       def hasCourse(name: String): Boolean = ???
