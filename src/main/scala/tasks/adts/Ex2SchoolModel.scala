@@ -125,7 +125,7 @@ object SchoolModel:
 
     extension (school: School)
       def courses: Sequence[String] = school.classes.flatMap((_, courses) => courses.map(_.name))
-      def teachers: Sequence[String] = ???
+      def teachers: Sequence[String] = school.classes.map((teachers, _) => teachers.name)
       def setTeacherToCourse(teacher: Teacher, course: Course): School = SchoolImpl(Cons((teacher, Cons(course, nil())), school.classes))
       def coursesOfATeacher(teacher: Teacher): Sequence[Course] = ???
       def hasTeacher(name: String): Boolean = ???
