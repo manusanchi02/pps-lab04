@@ -32,6 +32,6 @@ object Ex3Stacks:
     opaque type Stack[A] = StackType
     def empty[A]: Stack[A] = StackType(nil())
     extension [A](stack: Stack[A])
-      def push(a: A): Stack[A] = ???
+      def push(a: A): Stack[A] = StackType(cons(a.asInstanceOf[Int], stack.s))
       def pop(): Optional[(A, Stack[A])] = ???
       def asSequence(): Sequence[A] = stack.s.map(a => a.asInstanceOf[A])
