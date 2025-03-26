@@ -1,5 +1,4 @@
 package tasks.adts
-import u03.extensionmethods.Optionals.*
 import u03.extensionmethods.Sequences.*
 import u03.extensionmethods.Sequences.Sequence.{Cons, nil}
 

@@ -1,4 +1,5 @@
-package u04lab
+package tasks.typeclasses
+
 import u03.Sequences.*
 import Sequence.*
 import u03.extensionmethods.Optionals.Optional
@@ -32,7 +33,7 @@ object Ex5Traversable:
       case Just(a) => f(a)
       case _ => ()
 
-  def log[A](a: A): Unit = println("The next element is: "+a)
+  private def log[A](a: A): Unit = println("The next element is: "+a)
 
   def logAll[T[_]: Traversable, A](t: T[A]): Unit =
     summon[Traversable[T]].forEach(t)(log)

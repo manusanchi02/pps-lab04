@@ -1,4 +1,5 @@
-package u04lab
+package tasks.typeclasses
+
 import u03.Sequences.* 
 import Sequence.*
 
@@ -10,7 +11,7 @@ import Sequence.*
 
 object Ex4Summables:
 
-  def sumAllInt(seq: Sequence[Int]): Int = seq match
+  private def sumAllInt(seq: Sequence[Int]): Int = seq match
     case Cons(h, t) => h + sumAllInt(t)
     case _ => 0
 
@@ -18,7 +19,7 @@ object Ex4Summables:
     def sum(a1: A, a2: A): A
     def zero: A
 
-  def sumAll[A: Summable](seq: Sequence[A]): A =
+  private def sumAll[A: Summable](seq: Sequence[A]): A =
     val summable = summon[Summable[A]]
     seq match
       case Cons(h, t) => summable.sum(h, sumAll(t))
@@ -37,7 +38,7 @@ object Ex4Summables:
     def zero: String = ""
   // write givens for Summable[Double] and Summable[String]
 
-  @main def trySummables =
+  @main def trySummables(): Unit =
     val si = Cons(10, Cons(20, Cons(30, Nil())))  
     println:
       sumAllInt(si) // 60

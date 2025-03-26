@@ -1,7 +1,6 @@
 package tasks.monads
 
 import u04.monads.Monads.Monad
-import u04.monads.Monads.Monad
 
 /**
   * Exercise 6:
@@ -38,7 +37,7 @@ object Ex6TryModel:
         case TryImpl.Success(value) => f(value)
         case TryImpl.Failure(exception) => TryImpl.Failure(exception)
 
-@main def main: Unit =
+@main def main(): Unit =
   import Ex6TryModel.*
 
   val result = for
