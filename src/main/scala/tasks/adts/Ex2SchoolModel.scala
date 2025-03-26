@@ -127,7 +127,7 @@ object SchoolModel:
       def courses: Sequence[String] = school.classes.flatMap((_, courses) => courses.map(_.name))
       def teachers: Sequence[String] = school.classes.map((teachers, _) => teachers.name)
       def setTeacherToCourse(teacher: Teacher, course: Course): School = SchoolImpl(Cons((teacher, Cons(course, nil())), school.classes))
-      def coursesOfATeacher(teacher: Teacher): Sequence[Course] = school.classes.flatMap((teachers, courses) => if teachers == teacher then courses.flatMap(course => Cons(course, nil())) else nil())
+      def coursesOfATeacher(teacher: Teacher): Sequence[Course] = school.classes.filter((t, c) => t.name == teacher.name).flatMap((tf, cf) => cf)
       def hasTeacher(name: String): Boolean = teachers match
         case Cons(teacher, _) if teacher == name => true
         case _ => false
